@@ -349,6 +349,7 @@ footer{background:#07080D;color:#A5ACBD;padding:28px 0;font-size:.88rem}
     <label>What would you like to simplify?</label>
     <div class="opts" id="opts"><button type="button" class="opt">AI ideas</button><button type="button" class="opt">Automation</button><button type="button" class="opt">A digital product</button><button type="button" class="opt">Tech consulting</button><button type="button" class="opt">Not sure yet</button></div>
     <label for="nm">Your name</label><input id="nm" placeholder="Jane Doe" autocomplete="name">
+    <input id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;margin:0">
     <label for="msg">Tell us a little more</label><textarea id="msg" placeholder="A few words about the challenge…"></textarea>
     <button class="btn red mag" type="submit">Copy my brief <svg class="i"><use href="#arrow"/></svg></button>
     <div class="out" id="out" role="status"></div>
@@ -435,10 +436,19 @@ stp.forEach((s,i)=>s.onclick=()=>go(i));go(0);
 const sel=new Set();
 $$('.opt').forEach(o=>o.onclick=()=>{o.classList.toggle('on');o.classList.contains('on')?sel.add(o.textContent):sel.delete(o.textContent)});
 $('#brief').onsubmit=async e=>{e.preventDefault();
- const txt=`Hello Yuktitec,\n\nI'd like to talk about: ${sel.size?[...sel].join(', '):'a technology challenge'}.\n\n${$('#msg').value.trim()||'(Details to follow.)'}\n\n— ${$('#nm').value.trim()||'Name'}`;
- const out=$('#out');
- try{await navigator.clipboard.writeText(txt);out.textContent='Brief copied — paste it into an email to us.'}
- catch(err){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='width:100%;height:130px;margin-top:10px';out.textContent='Copy your brief below:';out.appendChild(ta);ta.select()}};
+ const out=$('#out'),btn=e.target.querySelector('button[type=submit]');
+ const name=$('#nm').value.trim(),message=$('#msg').value.trim(),topics=[...sel];
+ const txt=`Hello Yuktitec,\n\nI'd like to talk about: ${topics.length?topics.join(', '):'a technology challenge'}.\n\n${message||'(Details to follow.)'}\n\n— ${name||'Name'}`;
+ const copy=async why=>{try{await navigator.clipboard.writeText(txt);out.textContent=why+' Your brief is copied — paste it into an email to dipti@yuktitec.com.'}
+  catch(err){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='width:100%;height:130px;margin-top:10px';out.textContent=why+' Copy your brief below:';out.appendChild(ta);ta.select()}};
+ if(!name||!message){out.textContent='Please add your name and a few words about the challenge.';return}
+ btn.disabled=true;out.textContent='Sending…';
+ try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,message,topics,website:$('#hp').value})});
+  if(r.ok){out.textContent='Thank you — we have your message and will get back to you soon.';e.target.reset();sel.clear();$$('.opt').forEach(o=>o.classList.remove('on'))}
+  else if(r.status===400||r.status===429){const j=await r.json().catch(()=>({}));out.textContent=j.error||'Too many attempts. Please try again later.'}
+  else await copy('Could not send automatically.')}
+ catch(err){await copy('Could not send automatically.')}
+ btn.disabled=false};
 
 /* hero constellation */
 const cv=$('#net'),cx=cv.getContext('2d');let W,H,pts=[],mouse={x:-999,y:-999},C={b:'#1746C8',r:'#D92735'},running=true;
