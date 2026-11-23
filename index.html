@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
 <title>Yuktitec — Technology, made more human.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@600;700&family=Noto+Sans+Tamil:wght@600;700&family=Noto+Sans+Telugu:wght@600;700&family=Noto+Sans+Kannada:wght@600;700&family=Noto+Sans+Malayalam:wght@600;700&family=Noto+Sans+Bengali:wght@600;700&family=Noto+Sans+Gujarati:wght@600;700&family=Noto+Sans+Gurmukhi:wght@600;700&family=Noto+Sans+Oriya:wght@600;700&family=Noto+Nastaliq+Urdu:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#1746C8;--blue2:#3C6BFF;--red:#D92735;--ink:#111111;--bg:#FFFFFF;--bg2:#F5F7FC;--card:#FFFFFF;--muted:#5A6172;--line:#E4E8F1;--glow:rgba(23,70,200,.14);--hero-a:#EAF0FF;--nav:rgba(255,255,255,.78)}
 [data-theme=dark]{--blue:#5B86FF;--blue2:#7FA0FF;--red:#FF4D5B;--ink:#F3F5FA;--bg:#0B0D14;--bg2:#10131D;--card:#141824;--muted:#98A0B3;--line:#232837;--glow:rgba(91,134,255,.2);--hero-a:#13193A;--nav:rgba(11,13,20,.78)}
@@ -79,7 +79,13 @@ h1 .rot::after{content:"";position:absolute;left:0;right:0;bottom:-.04em;height:
 .yukti{position:relative;border-radius:28px;padding:48px 40px;background:linear-gradient(135deg,var(--blue),#0C2A82);color:#fff;overflow:hidden;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end}
 .yukti::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;right:-90px;top:-90px;border:1px solid rgba(255,255,255,.25);box-shadow:0 0 0 40px rgba(255,255,255,.05),0 0 0 80px rgba(255,255,255,.03)}
 .yukti::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--red);right:118px;top:60px;box-shadow:0 0 24px var(--red)}
-.yukti .dev{font:700 clamp(4rem,9vw,7rem)/1 "Noto Sans Devanagari",sans-serif;position:relative}
+.yukti .dev{font:700 clamp(3.4rem,7vw,5.6rem)/1.25 "Noto Sans Devanagari",sans-serif;position:relative;min-height:1.3em;transition:opacity .35s,transform .35s}
+.yukti .dev.swap{opacity:0;transform:translateY(10px)}
+.yukti .dev[lang=ta]{font-family:"Noto Sans Tamil"}.yukti .dev[lang=te]{font-family:"Noto Sans Telugu"}.yukti .dev[lang=kn]{font-family:"Noto Sans Kannada"}.yukti .dev[lang=ml]{font-family:"Noto Sans Malayalam"}.yukti .dev[lang=bn],.yukti .dev[lang=as]{font-family:"Noto Sans Bengali"}.yukti .dev[lang=gu]{font-family:"Noto Sans Gujarati"}.yukti .dev[lang=pa]{font-family:"Noto Sans Gurmukhi"}.yukti .dev[lang=or]{font-family:"Noto Sans Oriya"}.yukti .dev[lang=ur]{font-family:"Noto Nastaliq Urdu";direction:rtl;text-align:left}
+.yukti .lname{position:relative;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#FFB3BA;font-weight:700;margin:2px 0 6px;min-height:1.4em}
+.langs{position:relative;display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.langs button{font-size:.76rem;padding:5px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;opacity:.8;transition:.2s}
+.langs button:hover{opacity:1;border-color:#fff}.langs button.on{background:#fff;color:#0C2A82;opacity:1;font-weight:700}
 .yukti small{letter-spacing:.2em;text-transform:uppercase;opacity:.75;font-size:.75rem}
 .yukti p{margin:14px 0 0;opacity:.9;max-width:320px;position:relative}
 .quote{border-left:4px solid var(--red);padding:6px 0 6px 24px;font:600 1.5rem/1.35 Sora;letter-spacing:-.02em;margin-top:34px}
@@ -239,7 +245,7 @@ footer{background:#07080D;color:#A5ACBD;padding:28px 0;font-size:.88rem}
     <p class="lead">Inspired by the Sanskrit word <b>Yukti</b> (युक्ति) — intelligence, reasoning and ingenuity — Yuktitec is built around a straightforward belief: technology is at its best when it works naturally for people.</p>
     <div class="quote">“The best technology doesn't add complexity. It makes better things possible, simply.”</div>
   </div>
-  <div class="yukti reveal tilt" style="--d:.15s"><small>Sanskrit · noun</small><div class="dev">युक्ति</div><p><b>Yukti</b> — intelligence, reasoning and ingenuity.</p></div>
+  <div class="yukti reveal tilt" style="--d:.15s"><small>Sanskrit · noun · in every Indian language</small><div class="dev" id="yDev" lang="sa" aria-live="polite">युक्ति</div><div class="lname" id="yName">Sanskrit</div><p><b>Yukti</b> — intelligence, reasoning and ingenuity.</p><div class="langs" id="yLangs" aria-label="Yukti in Indian languages"></div></div>
 </div></section>
 
 <section class="section" id="capabilities"><div class="wrap">
@@ -337,7 +343,7 @@ footer{background:#07080D;color:#A5ACBD;padding:28px 0;font-size:.88rem}
     <div class="eyebrow">Start a conversation</div>
     <h2>Have a challenge worth simplifying?</h2>
     <p class="lead">Tell us what you're trying to make easier. Let's explore what thoughtful technology can do.</p>
-    <div class="contact-info"><span>Email: [Email address]</span><span>Phone: [Phone number]</span><span>Location: [Location]</span></div>
+    <div class="contact-info"><span>Email: <a href="mailto:dipti@yuktitec.com" style="text-decoration:underline">dipti@yuktitec.com</a></span><span>Location: Chennai</span></div>
   </div>
   <form class="brief reveal" id="brief" style="--d:.12s">
     <label>What would you like to simplify?</label>
@@ -385,6 +391,15 @@ $$('.reveal').forEach(el=>io.observe(el));
 /* rotating word */
 const words=['human.','useful.','simple.','intelligent.'];let wi=0;const rot=$('#rot');
 if(!reduce)setInterval(()=>{const s=rot.firstElementChild;s.classList.add('out');setTimeout(()=>{wi=(wi+1)%words.length;s.textContent=words[wi];s.classList.remove('out');s.classList.add('in');requestAnimationFrame(()=>requestAnimationFrame(()=>s.classList.remove('in')))},380)},2800);
+
+/* yukti in Indian languages */
+const yl=[['sa','Sanskrit','युक्ति'],['hi','Hindi','युक्ति'],['mr','Marathi','युक्ती'],['ne','Nepali','युक्ति'],['ta','Tamil','யுக்தி'],['te','Telugu','యుక్తి'],['kn','Kannada','ಯುಕ್ತಿ'],['ml','Malayalam','യുക്തി'],['bn','Bengali','যুক্তি'],['as','Assamese','যুক্তি'],['gu','Gujarati','યુક્તિ'],['pa','Punjabi','ਯੁਕਤੀ'],['or','Odia','ଯୁକ୍ତି'],['ur','Urdu','یُکتی']];
+const yD=$('#yDev'),yN=$('#yName'),yB=$('#yLangs');let yi=0,yt;
+yB.innerHTML=yl.map((x,i)=>`<button type="button" data-i="${i}">${x[1]}</button>`).join('');
+const yShow=i=>{yi=i;yD.classList.add('swap');setTimeout(()=>{yD.lang=yl[i][0];yD.textContent=yl[i][2];yN.textContent=yl[i][1];$$('button',yB).forEach((b,j)=>b.classList.toggle('on',j===i));yD.classList.remove('swap')},reduce?0:300)};
+const yAuto=()=>{clearInterval(yt);yt=setInterval(()=>yShow((yi+1)%yl.length),2600)};
+$$('button',yB).forEach(b=>b.onclick=()=>{yShow(+b.dataset.i);yAuto()});
+$$('button',yB)[0].classList.add('on');yAuto();
 
 /* marquee */
 const tw=['AI & intelligence','Automation','Digital experiences','Consulting','Textile','Medical','Hospitality','Sports','Human-first','Simple by design'];
